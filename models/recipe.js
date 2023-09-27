@@ -6,7 +6,8 @@ const recipeSchema = new mongoose.Schema({
     required: true,
   },
   ingredient: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Bahan Masak',
     required: true,
   },
   description: {
