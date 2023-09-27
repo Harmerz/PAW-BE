@@ -5,18 +5,14 @@ const express = require('express'),
   swaggerUI = require('swagger-ui-express'),
   specs = swaggerJsdoc(swaggerOption)
 const app = express()
+const cors = require('cors')
 const port = process.env.PORT || 5000
 const mongoose = require('mongoose')
 
 const Initial = require('./models/initial/role.initial.js')
+mongoose.set('strictQuery', false)
 mongoose
-  .connect(process.env.DATABASE_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-  })
-
+  .connect(process.env.DATABASE_URL)
   .then(() => {
     console.log('DB CONNECTED')
     Initial()
@@ -24,6 +20,23 @@ mongoose
   .catch((err) => {
     console.error('UNABLE to connect to DB:', err)
   })
+
+var allowedOrigins = ['http://localhost:5000', 'https://paw-be.vercel.app/']
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // allow requests with no origin
+      // (like mobile apps or curl requests)
+      if (!origin) return callback(null, true)
+      if (allowedOrigins.indexOf(origin) === -1) {
+        var msg =
+          'The CORS policy for this site does not ' + 'allow access from the specified Origin.'
+        return callback(new Error(msg), false)
+      }
+      return callback(null, true)
+    },
+  })
+)
 
 //middleware
 app.use(express.json())
