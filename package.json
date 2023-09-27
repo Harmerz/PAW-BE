@@ -47,9 +47,6 @@
     "dotenv": "^8.2.0",
     "nodemon": "^3.0.1"
   },
-  "engines": {
-    "node": "v18.12.1"
-  },
   "author": "",
   "license": "ISC"
 }
