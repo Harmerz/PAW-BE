@@ -43,10 +43,6 @@ const finance = require('./routes/finance')
 const inventory = require('./routes/inventory')
 const delivery = require('./routes/delivery')
 
-
-
-
-
 app.use('/recipe', recipe)
 
 app.use('/auth', auth)
@@ -58,8 +54,6 @@ app.use('/finance', finance)
 app.use('/inventory', inventory)
 
 app.use('/delivery', delivery)
-
-
 
 // CDN CSS
 const CSS_URL = 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.3.0/swagger-ui.min.css'

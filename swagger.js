@@ -32,10 +32,6 @@ const option = {
                 description: 'The list of items in the order.',
               },
             },
-            karyawan: {
-              type: 'string',
-              description: 'The ID of karyawan that handle the order',
-            },
           },
         },
         OrderResponse: {
@@ -93,10 +89,6 @@ const option = {
               type: 'number',
               description: 'The total price of the order.',
             },
-            karyawan: {
-              type: 'object',
-              description: 'The karyawan object that handle the order'
-            }
           },
           description: 'An order response from api',
         },

@@ -1,34 +1,61 @@
 const mongoose = require('mongoose')
+const { MongoMemoryServer } = require('mongodb-memory-server')
 const request = require('supertest')
 const app = require('../index')
 const Order = require('../models/order')
+const Inventory = require('../models/inventory')
+const User = require('../models/user')
 
 require('dotenv').config()
 
-beforeEach(async () => {
-  await mongoose.connect(process.env.TEST_DATABASE_URL)
-})
-
-afterEach(async () => {
-  await mongoose.connection.close()
-})
+let mongoServer
 
 // Mock
-const orderData = {
-  date: new Date(),
-  items: [
-    {
-      product: 'Product 1',
-      quantity: 2,
-      price: 1000,
-    },
-    {
-      product: 'Product 2',
-      quantity: 2,
-      price: 1500,
-    },
-  ],
-}
+
+const inventoryData = new Inventory({
+  name: 'Rice',
+  desc: 'White Rice',
+  type: 'Food',
+  quantity: 25,
+  qtype: 'Kg',
+  price: 12000,
+})
+
+let savedInventory;
+let orderData;
+
+beforeAll(async () => {
+  mongoServer = new MongoMemoryServer()
+  await mongoServer.start()
+  const mongoUri = mongoServer.getUri()
+  await mongoose.connect(mongoUri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+})
+
+afterAll(async () => {
+  await mongoose.disconnect()
+  await mongoServer.stop()
+})
+
+beforeEach(async () => {
+  const collections = mongoose.connection.collections
+  for (const key in collections) {
+    await collections[key].deleteMany({})
+  }
+
+  savedInventory = await inventoryData.save()
+
+  orderData = {
+    items: [
+      {
+        inventoryId: savedInventory._id,
+        quantity: 1
+      }
+    ] 
+  }
+})
 
 // Unit Test
 

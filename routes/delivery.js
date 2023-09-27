@@ -88,5 +88,4 @@ router.put('/:_id', updateDelivery);
  *         description: Delivery item deleted
  */
 router.delete('/:_id', deleteDelivery);
-
 module.exports = router

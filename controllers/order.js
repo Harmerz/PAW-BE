@@ -43,7 +43,6 @@ exports.addOrder = async (req, res) => {
     const newOrder = new Order({
       date: currentDate,
       items: itemsToSave,
-      karyawan: req.body.karyawan,
       totalPrice: totalPrice,
     })
 
@@ -58,7 +57,6 @@ exports.addOrder = async (req, res) => {
 
 exports.getOrders = (req, res) => {
   Order.find()
-    .populate('karyawan')
     .then((orders) => {
       res.status(200).json(orders)
     })
@@ -69,7 +67,6 @@ exports.getOrders = (req, res) => {
 
 exports.getOrderById = (req, res) => {
   Order.findById(req.params.id)
-    .populate('karyawan')
     .then((order) => {
       if (!order) {
         res.status(404).json({ message: 'Order not found' })
