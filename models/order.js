@@ -32,10 +32,6 @@ const orderSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  karyawan: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Karyawan',
-  },
 })
 
 module.exports = mongoose.model('Order', orderSchema)
