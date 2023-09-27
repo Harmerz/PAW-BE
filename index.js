@@ -27,6 +27,13 @@ mongoose
 
 //middleware
 app.use(express.json())
+app.get('/ping', (req, res) => {
+  return res.status(200).send({
+    status: 200,
+    condition: 'success',
+    message: 'PONG',
+  })
+})
 
 // Routes Require and Uses
 const recipe = require('./routes/recipe')
@@ -45,48 +52,8 @@ app.use('/finance', finance)
 
 app.use('/inventory', inventory)
 
-//swagger config
-// const swaggerOptions = {
-//   swaggerDefinition: {
-//     openapi: '3.0.0',
-//     info: {
-//       title: 'Inventory API',
-//       version: '1.0.0',
-//     },
-//     components: {
-//       schemas: {
-//         Inventory: {
-//           type: 'object',
-//           properties: {
-//             name: {
-//               type: 'string',
-//             },
-//             desc: {
-//               type: 'string',
-//             },
-//             type: {
-//               type: 'string',
-//             },
-//             quantity: {
-//               type: 'number',
-//             },
-//             qtype: {
-//               type: 'string',
-//             },
-//             price: {
-//               type: 'number',
-//             },
-//           },
-//           required: ['name', 'desc', 'type', 'qtype', 'price'], // Define required properties
-//         },
-//       },
-//     },
-//   },
-//   apis: ['./routes/inventory.js'],
-// }
-
-//serve swagger ui
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs))
+app.use('/', swaggerUI.serve, swaggerUI.setup(specs))
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`)
