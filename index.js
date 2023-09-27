@@ -52,8 +52,11 @@ app.use('/finance', finance)
 
 app.use('/inventory', inventory)
 
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs))
-app.use('/', swaggerUI.serve, swaggerUI.setup(specs))
+// CDN CSS
+const CSS_URL = 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.3.0/swagger-ui.min.css'
+
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs, { customCssUrl: CSS_URL }))
+app.use('/', swaggerUI.serve, swaggerUI.setup(specs, { customCssUrl: CSS_URL }))
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`)
