@@ -62,7 +62,7 @@ router.post('/', addDelivery)
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/delivery'
+ *             $ref: '#/components/schemas/Delivery'
  *     responses:
  *       '200':
  *         description: Delivery process has been updated
