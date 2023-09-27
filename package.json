@@ -48,5 +48,8 @@
     "nodemon": "^3.0.1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "directories": {
+    "test": "tests"
+  }
 }
