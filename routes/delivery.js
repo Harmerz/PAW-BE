@@ -1,7 +1,12 @@
 const express = require('express')
+const { authJwt } = require('../middlewares')
 const router = express.Router()
-const { getDelivery, addDelivery, updateDelivery, deleteDelivery } = require('../controllers/delivery')
-
+const {
+  getDelivery,
+  addDelivery,
+  updateDelivery,
+  deleteDelivery,
+} = require('../controllers/delivery')
 
 /**
  * @swagger
@@ -15,19 +20,25 @@ const { getDelivery, addDelivery, updateDelivery, deleteDelivery } = require('..
  * @swagger
  * /delivery:
  *   get:
+ *     security:
+ *        - bearerAuth: []
  *     summary: Get a list of Delivery process
  *     tags: [Delivery]
  *     responses:
  *       '200':
  *         description: Successful response
+ *       '401':
+ *         description: 'Access token is missing or invalid'
  */
-router.get('/', getDelivery)
+router.get('/', [authJwt.verifyToken], getDelivery)
 
 //create-swagger
 /**
  * @swagger
  * /delivery:
  *   post:
+ *     security:
+ *        - bearerAuth: []
  *     summary: Create a new Delivery process
  *     tags: [Delivery]
  *     requestBody:
@@ -39,15 +50,18 @@ router.get('/', getDelivery)
  *     responses:
  *       '201':
  *         description: Delivery has been created
+ *       '401':
+ *         description: 'Access token is missing or invalid'
  */
-router.post('/', addDelivery)
-
+router.post('/', [authJwt.verifyToken], addDelivery)
 
 //update-swagger
 /**
  * @swagger
  * /delivery/{_id}:
  *   put:
+ *     security:
+ *        - bearerAuth: []
  *     summary: Update an existing Delivery process
  *     tags: [Delivery]
  *     parameters:
@@ -66,14 +80,18 @@ router.post('/', addDelivery)
  *     responses:
  *       '200':
  *         description: Delivery process has been updated
+ *       '401':
+ *         description: 'Access token is missing or invalid'
  */
-router.put('/:_id', updateDelivery);
+router.put('/:_id', [authJwt.verifyToken], updateDelivery)
 
 //delete-swagger
 /**
  * @swagger
  * /delivery/{_id}:
  *   delete:
+ *     security:
+ *        - bearerAuth: []
  *     summary: Delete a Delivery process
  *     tags: [Delivery]
  *     parameters:
@@ -86,6 +104,8 @@ router.put('/:_id', updateDelivery);
  *     responses:
  *       '200':
  *         description: Delivery item deleted
+ *       '401':
+ *         description: 'Access token is missing or invalid'
  */
-router.delete('/:_id', deleteDelivery);
+router.delete('/:_id', [authJwt.verifyToken], deleteDelivery)
 module.exports = router

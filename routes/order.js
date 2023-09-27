@@ -7,6 +7,7 @@ const {
   updateOrderById,
   deleteOrderById,
 } = require('../controllers/order')
+const { authJwt } = require('../middlewares')
 
 /**
  * @swagger
@@ -19,6 +20,8 @@ const {
  * @swagger
  * /orders:
  *   get:
+ *     security:
+ *        - bearerAuth: []
  *     summary: Get all orders
  *     tags: [Orders]
  *     description: Retrieve a list of all orders in the grocery store.
@@ -31,15 +34,19 @@ const {
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/OrderResponse'
+ *       401:
+ *         description: 'Access token is missing or invalid'
  *       500:
  *         description: Internal server error
  */
-router.get('/', getOrders)
+router.get('/', [authJwt.verifyToken], getOrders)
 
 /**
  * @swagger
  * /orders/{id}:
  *   get:
+ *     security:
+ *        - bearerAuth: []
  *     summary: Get a specific order by ID
  *     tags: [Orders]
  *     description: Retrieve a specific order in the grocery store by its ID.
@@ -57,17 +64,21 @@ router.get('/', getOrders)
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/OrderResponse'
+ *       401:
+ *         description: 'Access token is missing or invalid'
  *       404:
  *         description: Order not found
  *       500:
  *         description: Internal server error
  */
-router.get('/:id', getOrderById)
+router.get('/:id', [authJwt.verifyToken], getOrderById)
 
 /**
  * @swagger
  * /orders:
  *   post:
+ *     security:
+ *        - bearerAuth: []
  *     summary: Create a new order
  *     tags: [Orders]
  *     description: Create a new order in the grocery store.
@@ -86,15 +97,19 @@ router.get('/:id', getOrderById)
  *               $ref: '#/components/schemas/OrderResponse'
  *       400:
  *         description: Bad request
+ *       401:
+ *         description: 'Access token is missing or invalid'
  *       500:
  *         description: Internal server error
  */
-router.post('/', addOrder)
+router.post('/', [authJwt.verifyToken], addOrder)
 
 /**
  * @swagger
  * /orders/{id}:
  *   put:
+ *     security:
+ *        - bearerAuth: []
  *     summary: Update an existing order by ID
  *     tags: [Orders]
  *     description: Update an existing order in the grocery store by its ID.
@@ -118,17 +133,21 @@ router.post('/', addOrder)
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/OrderResponse'
+ *       401:
+ *         description: 'Access token is missing or invalid'
  *       404:
  *         description: Order not found
  *       500:
  *         description: Internal server error
  */
-router.put('/:id', updateOrderById)
+router.put('/:id', [authJwt.verifyToken], updateOrderById)
 
 /**
  * @swagger
  * /orders/{id}:
  *   delete:
+ *     security:
+ *        - bearerAuth: []
  *     summary: Delete an order by ID
  *     tags: [Orders]
  *     description: Delete an order in the grocery store by its ID.
@@ -142,11 +161,13 @@ router.put('/:id', updateOrderById)
  *     responses:
  *       204:
  *         description: No content (successful delete)
+ *       401:
+ *         description: 'Access token is missing or invalid'
  *       404:
  *         description: Order not found
  *       500:
  *         description: Internal server error
  */
-router.delete('/:id', deleteOrderById)
+router.delete('/:id', [authJwt.verifyToken], deleteOrderById)
 
 module.exports = router

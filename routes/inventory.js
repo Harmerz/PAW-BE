@@ -1,6 +1,12 @@
 const express = require('express')
 const router = express.Router()
-const { getInventory, addInventory, deleteInventory, updateInventory } = require('../controllers/inventory')
+const {
+  getInventory,
+  addInventory,
+  deleteInventory,
+  updateInventory,
+} = require('../controllers/inventory')
+const { authJwt } = require('../middlewares')
 
 /**
  * @swagger
@@ -14,6 +20,8 @@ const { getInventory, addInventory, deleteInventory, updateInventory } = require
  * @swagger
  * /inventory:
  *   get:
+ *     security:
+ *        - bearerAuth: []
  *     summary: Get a list of inventory items or filter by name or type
  *     tags: [Inventory]
  *     parameters:
@@ -30,16 +38,20 @@ const { getInventory, addInventory, deleteInventory, updateInventory } = require
  *     responses:
  *       '200':
  *         description: Successful response
+ *       401:
+ *         description: 'Access token is missing or invalid'
  *       '404':
  *         description: No items found
  */
-router.get('/', getInventory);
+router.get('/', [authJwt.verifyToken], getInventory)
 
 //create-swagger
 /**
  * @swagger
  * /inventory:
  *   post:
+ *     security:
+ *        - bearerAuth: []
  *     summary: Create a new inventory item
  *     tags: [Inventory]
  *     requestBody:
@@ -51,14 +63,18 @@ router.get('/', getInventory);
  *     responses:
  *       '201':
  *         description: Inventory item created
+ *       401:
+ *         description: 'Access token is missing or invalid'
  */
-router.post('/', addInventory);
+router.post('/', [authJwt.verifyToken, authJwt.isAdmin], addInventory)
 
 //update-swagger
 /**
  * @swagger
  * /inventory/{_id}:
  *   put:
+ *     security:
+ *        - bearerAuth: []
  *     summary: Update an existing inventory item
  *     tags: [Inventory]
  *     parameters:
@@ -77,14 +93,18 @@ router.post('/', addInventory);
  *     responses:
  *       '200':
  *         description: Inventory item updated
+ *       401:
+ *         description: 'Access token is missing or invalid'
  */
-router.put('/:_id', updateInventory);
+router.put('/:_id', [authJwt.verifyToken, authJwt.isAdmin], updateInventory)
 
 //delete-swagger
 /**
  * @swagger
  * /inventory/{_id}:
  *   delete:
+ *     security:
+ *        - bearerAuth: []
  *     summary: Delete an inventory item
  *     tags: [Inventory]
  *     parameters:
@@ -97,7 +117,9 @@ router.put('/:_id', updateInventory);
  *     responses:
  *       '200':
  *         description: Inventory item deleted
+ *       401:
+ *         description: 'Access token is missing or invalid'
  */
-router.delete('/:_id', deleteInventory);
+router.delete('/:_id', [authJwt.verifyToken, authJwt.isAdmin], deleteInventory)
 
 module.exports = router

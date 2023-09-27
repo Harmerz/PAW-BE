@@ -1,6 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const { getRecipe, getOneRecipe, addRecipe, deleteRecipe, updateRecipe } = require('../controllers/recipe')
+const {
+  getRecipe,
+  getOneRecipe,
+  addRecipe,
+  deleteRecipe,
+  updateRecipe,
+} = require('../controllers/recipe')
+const { authJwt } = require('../middlewares')
 
 /**
  * @swagger
@@ -9,25 +16,30 @@ const { getRecipe, getOneRecipe, addRecipe, deleteRecipe, updateRecipe } = requi
  *   description: Recipe operations
  */
 
-
 //read-swagger
 /**
  * @swagger
  * /recipe:
  *   get:
+ *     security:
+ *        - bearerAuth: []
  *     summary: Get a list of recipe items
  *     tags: [Recipe]
  *     responses:
  *       '200':
  *         description: Successful response
+ *       401:
+ *         description: 'Access token is missing or invalid'
  */
-router.get('/', getRecipe)
+router.get('/', [authJwt.verifyToken], getRecipe)
 
 //read-swagger
 /**
  * @swagger
  * /recipe/{id}:
  *   get:
+ *     security:
+ *        - bearerAuth: []
  *     summary: Get a recipe by ID
  *     tags: [Recipe]
  *     responses:
@@ -35,14 +47,18 @@ router.get('/', getRecipe)
  *         description: Successful response
  *       '400':
  *         description: Invalid status value
+ *       401:
+ *         description: 'Access token is missing or invalid'
  */
-router.get('/:_id', getOneRecipe)
+router.get('/:_id', [authJwt.verifyToken], getOneRecipe)
 
 //create-swagger
 /**
  * @swagger
  * /recipe:
  *   post:
+ *     security:
+ *        - bearerAuth: []
  *     summary: Create a new recipe item
  *     tags: [Recipe]
  *     requestBody:
@@ -54,14 +70,18 @@ router.get('/:_id', getOneRecipe)
  *     responses:
  *       '201':
  *         description: Recipe item created
+ *       401:
+ *         description: 'Access token is missing or invalid'
  */
-router.post('/', addRecipe)
+router.post('/', [authJwt.verifyToken, authJwt.isKoki], addRecipe)
 
 //delete-swagger
 /**
  * @swagger
  * /recipe/{id}:
  *   delete:
+ *     security:
+ *        - bearerAuth: []
  *     summary: Delete an recipe item
  *     tags: [Recipe]
  *     requestBody:
@@ -78,14 +98,18 @@ router.post('/', addRecipe)
  *     responses:
  *       '200':
  *         description: Recipe item deleted
+ *       401:
+ *         description: 'Access token is missing or invalid'
  */
-router.delete('/:_id', deleteRecipe)
+router.delete('/:_id', [authJwt.verifyToken, authJwt.isKoki], deleteRecipe)
 
 //update-swagger
 /**
  * @swagger
  * /recipe/{id}:
  *   put:
+ *     security:
+ *        - bearerAuth: []
  *     summary: Update an existing recipe item
  *     tags: [Recipe]
  *     requestBody:
@@ -97,7 +121,9 @@ router.delete('/:_id', deleteRecipe)
  *     responses:
  *       '200':
  *         description: Recipe item updated
+ *       401:
+ *         description: 'Access token is missing or invalid'
  */
-router.put('/:_id', updateRecipe)
+router.put('/:_id', [authJwt.verifyToken, authJwt.isKoki], updateRecipe)
 
 module.exports = router
