@@ -1,0 +1,14 @@
+_id: env_bde3eaff0afa4b5c9783aa54d6aef3c6
+type: Environment
+parentId: env_7128d8df557ce0b7b351c77382587eb6aed75e26
+modified: 1695345892382
+created: 1695345681863
+name: Local Environment
+data:
+  base_url: http://127.0.0.1:5000
+dataPropertyOrder:
+  "&":
+    - base_url
+color: null
+isPrivate: false
+metaSortKey: 1695345681863

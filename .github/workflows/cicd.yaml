@@ -1,0 +1,34 @@
+name: Express.js with MongoDB CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Start MongoDB Docker container
+        run: docker run --name mongo-container -d -p 27017:27017 mongo:latest
+
+      - name: Wait for MongoDB to start
+        run: docker exec mongo-container mongo --eval "printjson(db.serverStatus())" && sleep 10
+
+      - name: Run tests
+        run: npm test
+
+      - name: Stop and remove MongoDB container
+        run: docker stop mongo-container && docker rm mongo-container

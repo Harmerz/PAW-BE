@@ -1,0 +1,43 @@
+_id: req_f781667d21484a82aa0dd2cd8c1fa994
+type: Request
+parentId: fld_8540c62e9d7346dea0ad73a1a01917c6
+modified: 1695346935629
+created: 1695346872219
+url: "{{ _.base_url }}/order/650cecf115c7401b68a1048d"
+name: Update Order
+description: ""
+method: PUT
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "date": "2023-09-22T09:00:00.000Z",
+      "items": [
+        {
+          "product": "Product 3",
+          "quantity": 1,
+          "price": 3000
+        },
+        {
+          "product": "Product 2",
+          "quantity": 2,
+          "price": 2500
+        }
+      ],
+      "totalPrice": 8000
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+  - name: User-Agent
+    value: insomnia/2023.5.8
+authentication: {}
+metaSortKey: -1695346872219
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,44 @@
+_id: req_050174ba9c5e4be1a856f7981bfde45f
+type: Request
+parentId: fld_8540c62e9d7346dea0ad73a1a01917c6
+modified: 1695346944016
+created: 1695345734897
+url: "{{ _.base_url }}/order"
+name: Create Order
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "Id": "123",
+      "date": "2023-09-22T12:00:00.000Z",
+      "items": [
+        {
+          "product": "Product 1",
+          "quantity": 2,
+          "price": 5000
+        },
+        {
+          "product": "Product 2",
+          "quantity": 1,
+          "price": 2500
+        }
+      ],
+      "totalPrice": 12500
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+  - name: User-Agent
+    value: insomnia/2023.5.8
+authentication: {}
+metaSortKey: -1695345734897
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

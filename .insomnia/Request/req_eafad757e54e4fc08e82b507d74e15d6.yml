@@ -1,0 +1,23 @@
+_id: req_eafad757e54e4fc08e82b507d74e15d6
+type: Request
+parentId: fld_8540c62e9d7346dea0ad73a1a01917c6
+modified: 1695346473964
+created: 1695346453782
+url: "{{ _.base_url }}/order"
+name: Get All Orders
+description: ""
+method: GET
+body: {}
+parameters: []
+headers:
+  - name: User-Agent
+    value: insomnia/2023.5.8
+authentication: {}
+metaSortKey: -1695346453782
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
