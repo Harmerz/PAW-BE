@@ -52,7 +52,7 @@ isAdmin = (req, res, next) => {
   })
 }
 
-isModerator = (req, res, next) => {
+isKoki = (req, res, next) => {
   User.findById(req.userId).exec((err, user) => {
     if (err) {
       res.status(500).send({ message: err })
@@ -86,6 +86,6 @@ isModerator = (req, res, next) => {
 const authJwt = {
   verifyToken,
   isAdmin,
-  isModerator,
+  isKoki,
 }
 module.exports = authJwt
