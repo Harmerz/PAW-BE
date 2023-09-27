@@ -26,11 +26,11 @@ This will provide users with comprehensive recipe using certain grocery items, t
 Then, users can track the delivery status for their goods, this feature is stored as delivery in the folder<br>
 
 ## 🫂 Meet Our Team #8
-- [Johanes de Britto Krisna Arianta (21/473893/TK/52247)] - Project Manager & Inventory Feature Programmer
-- [Haikal Hilmi (21/482625/TK/53328)] - Authentication Feature & Overall Web App Integration Programmer
-- [Muhammad Rizqi (21/478592/TK/52739)] - Order Management (Cart) Feature Programmer
-- [Nafisa Ramadhania (21/478543/TK/52731)] - Recipe Book Feature Programmer
-- [Yosep Engelbert Christo (19/446788/TK/49893)] - Delivery Status Feature Programmer
+- [Johanes de Britto Krisna Arianta (21/473893/TK/52247)](https://github.com/krisnaarianta) - Project Manager & Inventory Feature Programmer
+- [Haikal Hilmi (21/482625/TK/53328)](https://github.com/Harmerz) - Authentication Feature & Overall Web App Integration Programmer
+- [Muhammad Rizqi (21/478592/TK/52739)](https://github.com/m-rizqi) - Order Management (Cart) Feature Programmer
+- [Nafisa Ramadhania (21/478543/TK/52731)](https://github.com/nafisaramadhania) - Recipe Book Feature Programmer
+- [Yosep Engelbert Christo (19/446788/TK/49893)](https://github.com/YosepEChristo) - Delivery Status Feature Programmer
 
 ## 📖 Documentation
 - [Swagger - /api-docs]
