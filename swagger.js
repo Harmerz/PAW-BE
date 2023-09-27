@@ -122,10 +122,10 @@ const option = {
     },
     servers: [
       {
-        url: `http://127.0.0.1:${port}`,
+        url: 'https://paw-be.vercel.app/',
       },
       {
-        url: 'https://paw-be.vercel.app/',
+        url: `http://127.0.0.1:${port}`,
       },
     ],
   },
