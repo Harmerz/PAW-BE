@@ -10,6 +10,32 @@ exports.getInventory = (req, res) => {
     .catch((err) => console.log(err))
 }
 
+//read inventory from name or category
+exports.getInventory = (req, res) => {
+  const { name, type } = req.query;
+  const query = {};
+
+  if (name) {
+    query.name = { $regex: new RegExp(name, 'i') }; 
+  }
+
+  if (type) {
+    query.type = { $regex: new RegExp(type, 'i') }; 
+  }
+
+  InventoryMasak.find(query)
+    .then((inventory) => {
+      if (!inventory || inventory.length === 0) {
+        return res.status(404).json({ message: 'No items found' });
+      }
+      return res.json(inventory);
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).json({ error: 'Failed to retrieve inventory' });
+    });
+};
+
 //create inventory
 exports.addInventory = (req, res) => {
   const inventory = new InventoryMasak({

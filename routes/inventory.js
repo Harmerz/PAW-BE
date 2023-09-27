@@ -14,11 +14,24 @@ const { getInventory, addInventory, deleteInventory, updateInventory } = require
  * @swagger
  * /inventory:
  *   get:
- *     summary: Get a list of inventory items
+ *     summary: Get a list of inventory items or filter by name or type
  *     tags: [Inventory]
+ *     parameters:
+ *       - in: query
+ *         name: name
+ *         schema:
+ *           type: string
+ *         description: Name to filter inventory items by (optional)
+ *       - in: query
+ *         name: type
+ *         schema:
+ *           type: string
+ *         description: Type to filter inventory items by (optional)
  *     responses:
  *       '200':
  *         description: Successful response
+ *       '404':
+ *         description: No items found
  */
 router.get('/', getInventory);
 
