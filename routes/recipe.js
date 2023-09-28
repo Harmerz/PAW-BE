@@ -73,7 +73,7 @@ router.get('/:_id', [authJwt.verifyToken], getOneRecipe)
  *       401:
  *         description: 'Access token is missing or invalid'
  */
-router.post('/', [authJwt.verifyToken, authJwt.isKoki], addRecipe)
+router.post('/', [authJwt.verifyToken, authJwt.isAdmin], addRecipe)
 
 //delete-swagger
 /**
@@ -101,7 +101,7 @@ router.post('/', [authJwt.verifyToken, authJwt.isKoki], addRecipe)
  *       401:
  *         description: 'Access token is missing or invalid'
  */
-router.delete('/:_id', [authJwt.verifyToken, authJwt.isKoki], deleteRecipe)
+router.delete('/:_id', [authJwt.verifyToken, authJwt.isAdmin], deleteRecipe)
 
 //update-swagger
 /**
@@ -124,6 +124,6 @@ router.delete('/:_id', [authJwt.verifyToken, authJwt.isKoki], deleteRecipe)
  *       401:
  *         description: 'Access token is missing or invalid'
  */
-router.put('/:_id', [authJwt.verifyToken, authJwt.isKoki], updateRecipe)
+router.put('/:_id', [authJwt.verifyToken, authJwt.isAdmin], updateRecipe)
 
 module.exports = router

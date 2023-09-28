@@ -106,12 +106,12 @@ exports.signin = (req, res) => {
         authorities.push('ROLE_' + user.roles[i].name.toUpperCase())
       }
       res.status(200).send({
+        accessToken: token,
         id: user._id,
         name: user.name,
         username: user.username,
         email: user.email,
         roles: authorities,
-        accessToken: token,
       })
     })
 }
