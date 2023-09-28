@@ -15,6 +15,46 @@ const { authJwt } = require('../middlewares')
  *   description: Inventory operations
  */
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Inventory:
+ *       type: object
+ *       required:
+ *         - name
+ *         - desc
+ *         - type
+ *         - qtype
+ *         - price
+ *       properties:
+ *         name:
+ *           type: string
+ *           description: Item Name
+ *         desc:
+ *           type: string
+ *           description: Item Description
+ *         type:
+ *           type: string
+ *           description: Item Category
+ *         quantity:
+ *           type: float
+ *           description: Your Password
+ *         qtype:
+ *           type: string
+ *           description: Your Password
+ *         price:
+ *           type: float
+ *           description: Your Password
+ *       example:
+ *         name: Ikan Bilis
+ *         desc: Ikan yang ada di promosi KFC Malaysia
+ *         type: ikan
+ *         quantity: 100
+ *         qtype: kg
+ *         price: 3000
+ */
+
 //read-swagger
 /**
  * @swagger
