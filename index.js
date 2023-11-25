@@ -21,7 +21,7 @@ mongoose
     console.error('UNABLE to connect to DB:', err)
   })
 
-var allowedOrigins = ['http://localhost:5000', 'https://paw-be.vercel.app/']
+var allowedOrigins = ['http://localhost:3000', 'https://paw-be.vercel.app/']
 app.use(
   cors({
     origin: function (origin, callback) {
