@@ -8,7 +8,7 @@ const app = express()
 const cors = require('cors')
 const port = process.env.PORT || 5000
 const mongoose = require('mongoose')
-
+const morgan = require('morgan')
 const Initial = require('./models/initial/role.initial.js')
 mongoose.set('strictQuery', false)
 mongoose
@@ -37,7 +37,7 @@ app.use(
     },
   })
 )
-
+app.use(morgan('dev'))
 //middleware
 app.use(express.json())
 app.get('/ping', (req, res) => {
