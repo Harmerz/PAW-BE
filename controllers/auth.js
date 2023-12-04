@@ -90,28 +90,28 @@ exports.signin = (req, res) => {
       if (!passwordIsValid) {
         return res.status(401).send({
           accessToken: null,
+          refreshToken: null, // Include refresh token field
           message: 'Invalid Password!',
         })
       }
 
-      const token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET, {
+      // Generate access token
+      const accessToken = jwt.sign({ id: user.id }, process.env.ACCESS_TOKEN_SECRET, {
         algorithm: 'HS256',
         allowInsecureKeySizes: true,
-        expiresIn: 86400, // 24 hours
+        expiresIn: 1800,
       })
 
-      var authorities = []
+      // Generate refresh token
+      const refreshToken = jwt.sign({ id: user.id }, process.env.REFRESH_TOKEN_SECRET, {
+        algorithm: 'HS256',
+        allowInsecureKeySizes: true,
+        expiresIn: 2592000, // 30 days
+      })
 
-      for (let i = 0; i < user.roles.length; i++) {
-        authorities.push('ROLE_' + user.roles[i].name.toUpperCase())
-      }
       res.status(200).send({
-        accessToken: token,
-        id: user._id,
-        name: user.name,
-        username: user.username,
-        email: user.email,
-        roles: authorities,
+        accessToken: accessToken,
+        refreshToken: refreshToken,
       })
     })
 }
