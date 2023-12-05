@@ -8,7 +8,7 @@ const app = express()
 const cors = require('cors')
 const port = process.env.PORT || 5000
 const mongoose = require('mongoose')
-
+const morgan = require('morgan')
 const Initial = require('./models/initial/role.initial.js')
 mongoose.set('strictQuery', false)
 mongoose
@@ -21,7 +21,7 @@ mongoose
     console.error('UNABLE to connect to DB:', err)
   })
 
-var allowedOrigins = ['http://localhost:3000', 'https://paw-be.vercel.app/']
+var allowedOrigins = ['http://localhost:3000', 'https://paw-be.vercel.app']
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -37,7 +37,7 @@ app.use(
     },
   })
 )
-
+app.use(morgan('dev'))
 //middleware
 app.use(express.json())
 app.get('/ping', (req, res) => {
@@ -55,6 +55,7 @@ const order = require('./routes/order')
 const finance = require('./routes/finance')
 const inventory = require('./routes/inventory')
 const delivery = require('./routes/delivery')
+const user = require('./routes/user')
 
 app.use('/recipe', recipe)
 
@@ -67,6 +68,8 @@ app.use('/finance', finance)
 app.use('/inventory', inventory)
 
 app.use('/delivery', delivery)
+
+app.use('/api', user)
 
 // CDN CSS
 const CSS_URL = 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.3.0/swagger-ui.min.css'

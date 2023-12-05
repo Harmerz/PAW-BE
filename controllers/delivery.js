@@ -1,6 +1,5 @@
 const Delivery = require('../models/delivery')
 
-
 //create delivery
 exports.addDelivery = (req, res) => {
   const delivery = new Delivery({
@@ -25,44 +24,56 @@ exports.getDelivery = (req, res) => {
     .catch((err) => console.log(err))
 }
 
-
-
 //update delivery
 exports.updateDelivery = (req, res) => {
-  const deliveryId = req.params._id;
-  const updatedData = {
+  const deliveryId = req.params._id
+  const updatedDelivery = {
     recipient: req.body.recipient,
     orderItems: req.body.orderItems,
     courier: req.body.courier,
     estimedTime: req.body.estimedTime,
-  };
+  }
 
-  Delivery.findByIdAndUpdate(deliveryId, updatedData, { new: true })
+  Delivery.findByIdAndUpdate(deliveryId, updatedDelivery, { new: true })
     .then((updatedDelivery) => {
       if (!updatedDelivery) {
-        return res.status(404).json({ message: 'Delivery Update not found' });
+        return res.status(404).json({ message: 'Delivery Update not found' })
       }
-      return res.json(updatedDelivery);
+      return res.json(updatedDelivery)
     })
     .catch((err) => {
-      console.error(err);
-      return res.status(500).json({ error: 'Failed to update delivery' });
-    });
-};
+      console.error(err)
+      return res.status(500).json({ error: 'Failed to update delivery' })
+    })
+}
+
+exports.getDeliveryById = (req, res) => {
+  const deliveryId = req.params._id // Assuming the ID is passed in the request parameters
+
+  Delivery.findById(deliveryId)
+    .then((delivery) => {
+      if (!delivery) return res.status(404).json({ message: 'delivery tidak ditemukan' })
+      return res.json(delivery)
+    })
+    .catch((err) => {
+      console.log(err)
+      return res.status(500).json({ message: 'Internal Server Error' })
+    })
+}
 
 //delete delivery
 exports.deleteDelivery = (req, res) => {
-  const deliveryId = req.params._id;
+  const deliveryId = req.params._id
 
   Delivery.findByIdAndDelete(deliveryId)
     .then((deletedDelivery) => {
       if (!deletedDelivery) {
-        return res.status(404).json({ message: 'Delivery process not found' });
+        return res.status(404).json({ message: 'Delivery process not found' })
       }
-      return res.json({ message: 'Delivery deleted successfully' });
+      return res.json({ message: 'Delivery deleted successfully' })
     })
     .catch((err) => {
-      console.error(err);
-      return res.status(500).json({ error: 'Failed to delete Delivery' });
-    });
-};
+      console.error(err)
+      return res.status(500).json({ error: 'Failed to delete Delivery' })
+    })
+}

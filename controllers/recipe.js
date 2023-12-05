@@ -10,17 +10,17 @@ exports.getRecipe = (req, res) => {
 }
 
 exports.getOneRecipe = (req, res) => {
-  const recipeId = req.params._id; // Assuming the ID is passed in the request parameters
+  const recipeId = req.params._id // Assuming the ID is passed in the request parameters
 
-    Recipe.findById(recipeId)
-      .then((recipe) => {
-        if (!recipe) return res.status(404).json({ message: 'Recipe tidak ditemukan' });
-        return res.json(recipe);
-      })
-      .catch((err) => {
-        console.log(err);
-        return res.status(500).json({ message: 'Internal Server Error' });
-      });
+  Recipe.findById(recipeId)
+    .then((recipe) => {
+      if (!recipe) return res.status(404).json({ message: 'Recipe tidak ditemukan' })
+      return res.json(recipe)
+    })
+    .catch((err) => {
+      console.log(err)
+      return res.status(500).json({ message: 'Internal Server Error' })
+    })
 }
 
 exports.addRecipe = (req, res) => {
@@ -29,6 +29,8 @@ exports.addRecipe = (req, res) => {
     name: req.body.name,
     ingredient: req.body.ingredient,
     description: req.body.description,
+    instruction: req.body.instruction,
+    imgUrl: req.body.imgUrl,
   })
   recipe.save((err, recipe) => {
     if (err) return res.status(500).json({ error: err })
@@ -38,21 +40,21 @@ exports.addRecipe = (req, res) => {
 
 exports.deleteRecipe = (req, res) => {
   Recipe.findByIdAndDelete(req.params._id, (err) => {
-    if (err) return res.status(500).json({ error: err });
-    return res.sendStatus(200);
-  });
-};
+    if (err) return res.status(500).json({ error: err })
+    return res.sendStatus(200)
+  })
+}
 
 exports.updateRecipe = (req, res) => {
-  const { name, ingredient, description } = req.body;
+  const { name, ingredient, description, instruction, imgUrl } = req.body
 
   Recipe.findByIdAndUpdate(
     req.params._id,
-    { name, ingredient, description },
+    { name, ingredient, description, instruction, imgUrl },
     { new: true },
     (err, recipe) => {
-      if (err) return res.status(500).json({ error: err });
-      return res.json(recipe);
+      if (err) return res.status(500).json({ error: err })
+      return res.json(recipe)
     }
-  );
-};
+  )
+}

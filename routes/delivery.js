@@ -6,6 +6,7 @@ const {
   addDelivery,
   updateDelivery,
   deleteDelivery,
+  getDeliveryById,
 } = require('../controllers/delivery')
 
 /**
@@ -108,4 +109,24 @@ router.put('/:_id', [authJwt.verifyToken], updateDelivery)
  *         description: 'Access token is missing or invalid'
  */
 router.delete('/:_id', [authJwt.verifyToken], deleteDelivery)
+
+//read-swagger
+/**
+ * @swagger
+ * /delivery/{id}:
+ *   get:
+ *     security:
+ *        - bearerAuth: []
+ *     summary: Get a delivery by ID
+ *     tags: [Delivery]
+ *     responses:
+ *       '200':
+ *         description: Successful response
+ *       '400':
+ *         description: Invalid status value
+ *       401:
+ *         description: 'Access token is missing or invalid'
+ */
+router.get('/:_id', [authJwt.verifyToken], getDeliveryById)
+
 module.exports = router
