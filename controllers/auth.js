@@ -1,5 +1,6 @@
 const User = require('../models/user')
 const Role = require('../models/role')
+const Refresh = require('../models/resfresh')
 require('dotenv').config()
 
 var jwt = require('jsonwebtoken')
@@ -73,9 +74,10 @@ exports.signin = (req, res) => {
     : {
         email: req.body.email,
       }
+  console.log(Finder)
   User.findOne(Finder)
     .populate('roles', '-__v')
-    .exec((err, user) => {
+    .exec(async (err, user) => {
       if (err) {
         res.status(500).send({ message: err })
         return
@@ -108,10 +110,55 @@ exports.signin = (req, res) => {
         allowInsecureKeySizes: true,
         expiresIn: 2592000, // 30 days
       })
+      const refresh = new Refresh({
+        token: refreshToken,
+      })
+      await refresh.save()
 
       res.status(200).send({
         accessToken: accessToken,
         refreshToken: refreshToken,
       })
     })
+}
+
+exports.refreshAccessToken = async (req, res) => {
+  const token = req?.headers?.['authorization']?.split(' ')?.[1]
+  const refresh = await Refresh.findOne({
+    token: token,
+  })
+  if (!refresh) return res.sendStatus(403)
+  jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
+    if (err) {
+      console.log(err)
+      return res.status(401).send({
+        message: 'Unauthorized!',
+      })
+    }
+
+    const accessToken = jwt.sign(
+      {
+        type: 'access',
+        sub: decoded.id,
+      },
+      process.env.ACCESS_TOKEN_SECRET,
+      {
+        algorithm: 'HS256',
+        allowInsecureKeySizes: true,
+        expiresIn: 1800,
+      }
+    )
+
+    res.json({ accessToken: accessToken })
+  })
+}
+
+exports.logout = async (req, res) => {
+  const refresh = req?.headers?.['authorization']?.split(' ')?.[1]
+
+  await Refresh.findOneAndDelete({
+    token: refresh,
+  })
+
+  res.sendStatus(204)
 }
