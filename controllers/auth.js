@@ -98,18 +98,26 @@ exports.signin = (req, res) => {
       }
 
       // Generate access token
-      const accessToken = jwt.sign({ id: user.id }, process.env.ACCESS_TOKEN_SECRET, {
-        algorithm: 'HS256',
-        allowInsecureKeySizes: true,
-        expiresIn: 1800,
-      })
+      const accessToken = jwt.sign(
+        { id: user.id, type: 'access' },
+        process.env.ACCESS_TOKEN_SECRET,
+        {
+          algorithm: 'HS256',
+          allowInsecureKeySizes: true,
+          expiresIn: 1800,
+        }
+      )
 
       // Generate refresh token
-      const refreshToken = jwt.sign({ id: user.id }, process.env.REFRESH_TOKEN_SECRET, {
-        algorithm: 'HS256',
-        allowInsecureKeySizes: true,
-        expiresIn: 2592000, // 30 days
-      })
+      const refreshToken = jwt.sign(
+        { id: user.id, type: 'refresh' },
+        process.env.REFRESH_TOKEN_SECRET,
+        {
+          algorithm: 'HS256',
+          allowInsecureKeySizes: true,
+          expiresIn: 2592000, // 30 days
+        }
+      )
       const refresh = new Refresh({
         token: refreshToken,
       })
@@ -139,7 +147,7 @@ exports.refreshAccessToken = async (req, res) => {
     const accessToken = jwt.sign(
       {
         type: 'access',
-        sub: decoded.id,
+        id: decoded.id,
       },
       process.env.ACCESS_TOKEN_SECRET,
       {
