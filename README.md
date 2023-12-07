@@ -1,15 +1,23 @@
 <h1 align="center">
-  Tumbas
+  Tumbas - Kelompok 8
 </h1>
-<p align="center">Web App backend API | Pengembangan Aplikasi Web</p>
+<p align="center">Web App Frontend | Pengembangan Aplikasi Web 2023 | NEXTJS 13</p>
 
 ## 📃 Table of Contents
 
+- Deployments
 - About
 - Features
 - Meet Our Team #8
 - Documentation
 - Set Up
+
+## ✅ Deployments
+[Tumbas Web](https://paw-fe.vercel.app/auth/signin)
+
+[Presentation File](https://www.canva.com/design/DAF2SK5hvP8/AmLq3Wj1Asd-cK6vzOTnIQ/view?utm_content=DAF2SK5hvP8&utm_campaign=designshare&utm_medium=link&utm_source=editor)
+
+[Presentation Video](https://paw-fe.vercel.app/auth/signin)
 
 ## ⁉️ About
 
@@ -18,7 +26,7 @@ Tumbas is a web app made specifically for grocery store, in which people can bro
 ## 😵‍💫 Features
 
 - ### Sign In dan Sign Up<br>
-  In this web app, there are user side and admin side with different authorization, therefore sign up and sign in are needed<br>
+  In this web app, there are user side and admin side with different authorization, therefore sign up and sign in are needed. There is using next-auth for get the session to choose between user or admin for using the service<br>
 - ### Choosing Groceries<br>
   Users can browse and selecte grocery, this feature is stored as inventory in the folder<br>
 - ### Order Management<br>
@@ -45,6 +53,26 @@ Tumbas is a web app made specifically for grocery store, in which people can bro
 
 ## ⚙️ Set Up
 
+### Front End
+
+- Install required dependencies:
+
+```
+yarn install
+```
+
+- Run the program:
+
+```
+yarn dev
+```
+
+- Preview:
+
+```
+http://localhost:3000/
+```
+
 ### Backend
 
 - Install required dependencies:
@@ -58,3 +86,5 @@ npm install
 ```
 npm start
 ```
+### Folder structuring
+![image](https://github.com/Harmerz/paw-fe/assets/54217524/e6d67075-514e-4806-b8a8-3e816d213243)
